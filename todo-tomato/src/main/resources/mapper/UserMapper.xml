@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    namespace：绑定到哪个 Mapper 接口。必须写完整类名。
+    MyBatis 启动时会检查这个 XML 和 UserMapper 接口的方法名是否一一对应。
+-->
+<mapper namespace="org.example.todotomato.mapper.UserMapper">
+
+    <!--
+        resultType：SQL 查询结果映射成什么 Java 类型。
+        因为 application.yml 配置了 type-aliases-package=entity 包，
+        所以这里可以直接写 "User"，不用写完整类名。
+
+        如果查出来是单个对象，用类名；查出来是列表，MyBatis 自动转成 List。
+    -->
+
+    <!-- 根据 openid 查用户 -->
+    <select id="findByOpenid" resultType="User">
+        SELECT id, openid, phone, nickname, avatar, created_at
+        FROM users
+        WHERE openid = #{openid}
+        <!-- #{openid} 是 MyBatis 的占位符，相当于 JDBC 的 ?，自动防 SQL 注入 -->
+    </select>
+
+    <!-- 根据 ID 查用户 -->
+    <select id="findById" resultType="User">
+        SELECT id, openid, phone, nickname, avatar, created_at
+        FROM users
+        WHERE id = #{id}
+    </select>
+
+    <!--
+        新增用户
+        useGeneratedKeys="true"：插入后把数据库自增的主键值回填到 user.id 里
+        keyProperty="id"：回填到 user 对象的哪个字段
+    -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users (openid, phone, nickname, avatar, created_at)
+        VALUES (#{openid}, #{phone}, #{nickname}, #{avatar}, NOW())
+        <!-- MyBatis 自动从 user 对象里取 openid/phone/nickname/avatar 的值 -->
+    </insert>
+
+    <!-- 更新手机号 -->
+    <update id="updatePhone">
+        UPDATE users
+        SET phone = #{phone}
+        WHERE id = #{userId}
+    </update>
+
+</mapper>

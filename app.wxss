@@ -1,0 +1,42 @@
+/**
+ * 全局样式 —— 所有页面共享的样式
+ * 相当于 Vue 项目里的 global.css
+ */
+
+/* 页面容器 */
+page {
+    height: 100%;
+    background-color: #f5f5f5;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    color: #333;
+}
+
+/* 通用容器 */
+.container {
+    padding: 20rpx;
+    /* rpx：小程序的响应式像素单位，750rpx = 屏幕宽度，自动适配不同手机 */
+}
+
+/* 通用按钮样式 */
+.btn-primary {
+    background-color: #e74c3c;
+    color: white;
+    border-radius: 10rpx;
+    text-align: center;
+    padding: 24rpx;
+    font-size: 32rpx;
+}
+
+.btn-primary:active {
+    background-color: #c0392b;
+    /* :active：按下时的效果，类似 CSS 的 :active */
+}
+
+/* 空状态提示 */
+.empty-tip {
+    text-align: center;
+    color: #999;
+    margin-top: 200rpx;
+    font-size: 28rpx;
+}

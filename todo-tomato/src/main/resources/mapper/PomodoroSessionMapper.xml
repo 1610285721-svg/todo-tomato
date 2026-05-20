@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.todotomato.mapper.PomodoroSessionMapper">
+
+    <!-- 插入一条番茄钟完成记录 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pomodoro_sessions (user_id, task_id, type, duration, created_at)
+        VALUES (#{userId}, #{taskId}, #{type}, #{duration}, NOW())
+    </insert>
+
+    <!-- 统计总番茄数 -->
+    <select id="countByUserId" resultType="int">
+        SELECT COUNT(*)
+        FROM pomodoro_sessions
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 统计总专注秒数 -->
+    <select id="sumDurationByUserId" resultType="int">
+        SELECT COALESCE(SUM(duration), 0)
+        <!-- COALESCE：如果 SUM 结果是 NULL（即用户还没有任何记录），返回 0 -->
+        FROM pomodoro_sessions
+        WHERE user_id = #{userId}
+    </select>
+
+</mapper>

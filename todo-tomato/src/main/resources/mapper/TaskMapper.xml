@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.todotomato.mapper.TaskMapper">
+
+    <!-- 查某个用户的所有任务，按创建时间倒序 -->
+    <select id="findByUserId" resultType="Task">
+        SELECT id, user_id, title, pomodoro_count, done, created_at
+        FROM tasks
+        WHERE user_id = #{userId}
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 根据 ID 查单个任务 -->
+    <select id="findById" resultType="Task">
+        SELECT id, user_id, title, pomodoro_count, done, created_at
+        FROM tasks
+        WHERE id = #{id}
+    </select>
+
+    <!-- 新增任务 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tasks (user_id, title, pomodoro_count, done, created_at)
+        VALUES (#{userId}, #{title}, 0, 0, NOW())
+        <!-- pomodoro_count 默认 0，done 默认 0（false） -->
+    </insert>
+
+    <!--
+        更新任务 —— 动态 SQL：只更新传了值的字段
+        <set> 标签会自动处理逗号问题
+    -->
+    <update id="update">
+        UPDATE tasks
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="done != null">
+                done = #{done},
+            </if>
+            <if test="pomodoroCount != null">
+                pomodoro_count = #{pomodoroCount},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除任务 -->
+    <delete id="deleteById">
+        DELETE FROM tasks WHERE id = #{id}
+    </delete>
+
+    <!--
+        番茄钟计数 +1
+        为什么用 UPDATE ... SET col = col + 1 而不是先查再加再更新？
+        因为这个写法是原子操作。如果两个人同时完成番茄钟，
+        用"先查后改"可能少加一次，用这个不会。
+    -->
+    <update id="incrementPomodoroCount">
+        UPDATE tasks
+        SET pomodoro_count = pomodoro_count + 1
+        WHERE id = #{taskId}
+    </update>
+
+</mapper>

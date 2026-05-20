@@ -1,0 +1,31 @@
+<!--
+  登录页 —— 结构层（相当于 Vue 的 <template>）
+  小程序用 view/button/text/image 等原生组件代替 HTML 标签
+-->
+<view class="login-container">
+  <!-- logo 区域 -->
+  <view class="logo-area">
+    <view class="logo-icon">🍅</view>
+    <text class="app-name">代办番茄钟</text>
+    <text class="app-desc">专注工作，消灭待办</text>
+  </view>
+
+  <!-- 登录按钮区域 -->
+  <view class="login-btn-area">
+    <button
+      class="wechat-login-btn"
+      bind:tap="handleLogin"
+      loading="{{loading}}"
+      disabled="{{loading}}"
+    >
+      <text wx:if="{{!loading}}">微信一键登录</text>
+      <text wx:else>登录中...</text>
+      <!--
+        wx:if：条件渲染，和 Vue 的 v-if 一样
+        {{loading}}：数据绑定，和 Vue 的 {{loading}} 一样
+        bind:tap：事件绑定，和 Vue 的 @click 一样
+      -->
+    </button>
+    <text class="login-tip">登录后数据将同步到云端</text>
+  </view>
+</view>

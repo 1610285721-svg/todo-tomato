@@ -1,0 +1,55 @@
+<!--
+  番茄钟页 —— 结构层
+  核心：大号倒计时数字 + 环形进度条 + 三个按钮
+-->
+<view class="pomodoro-container">
+  <!-- 模式标签 -->
+  <view class="mode-tag {{mode}}">
+    {{mode === 'work' ? '工作中' : '休息中'}}
+  </view>
+
+  <!--
+    进度环 + 时间显示
+    用 CSS 的 conic-gradient 画环形进度条
+  -->
+  <view class="timer-ring">
+    <!-- 背景环（灰色底） -->
+    <view class="ring-bg"></view>
+    <!-- 前景环（红色进度），用 style 动态设角度 -->
+    <view
+      class="ring-progress {{mode === 'work' ? 'work' : 'break'}}"
+      style="--progress: {{progress}}"
+    ></view>
+    <!-- 中心时间显示 -->
+    <view class="timer-center">
+      <text class="timer-text">{{displayTime}}</text>
+      <text class="timer-mode-label">{{mode === 'work' ? '专注' : '放松'}}</text>
+    </view>
+  </view>
+
+  <!-- 控制按钮组 -->
+  <view class="control-buttons">
+    <!-- 暂停按钮：只在 running 状态显示 -->
+    <button
+      wx:if="{{status === 'running'}}"
+      class="ctrl-btn pause-btn"
+      bind:tap="pauseTimer"
+    >暂停</button>
+
+    <!-- 开始按钮：idle 或 paused 状态显示 -->
+    <button
+      wx:if="{{status !== 'running'}}"
+      class="ctrl-btn start-btn"
+      bind:tap="startTimer"
+    >
+      {{status === 'paused' ? '继续' : '开始'}}
+    </button>
+
+    <!-- 重置按钮：非 idle 状态都显示 -->
+    <button
+      wx:if="{{status !== 'idle'}}"
+      class="ctrl-btn reset-btn"
+      bind:tap="resetTimer"
+    >重置</button>
+  </view>
+</view>

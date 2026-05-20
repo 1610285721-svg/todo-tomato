@@ -1,0 +1,105 @@
+/**
+ * 任务列表页样式
+ */
+
+/* 新增任务栏 */
+.add-bar {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 20rpx;
+    border-radius: 16rpx;
+    margin-bottom: 24rpx;
+    box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.05);
+}
+
+.add-input {
+    flex: 1;           /* 占满剩余空间 */
+    height: 70rpx;
+    font-size: 30rpx;
+    padding: 0 20rpx;
+}
+
+.add-btn {
+    width: 140rpx;
+    height: 70rpx;
+    line-height: 70rpx;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 28rpx;
+    border-radius: 10rpx;
+    text-align: center;
+    padding: 0;
+}
+
+/* 任务卡片 */
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16rpx;        /* 卡片间距 */
+}
+
+.task-card {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 28rpx 24rpx;
+    border-radius: 16rpx;
+    box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.05);
+}
+
+/* 左侧勾选框 */
+.task-check {
+    margin-right: 24rpx;
+}
+
+.check-circle {
+    width: 48rpx;
+    height: 48rpx;
+    border: 3rpx solid #ddd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28rpx;
+    color: white;
+}
+
+.check-circle.checked {
+    background-color: #27ae60;
+    border-color: #27ae60;
+}
+
+/* 中间任务信息 */
+.task-info {
+    flex: 1;
+}
+
+.task-title {
+    font-size: 32rpx;
+    color: #333;
+    display: block;
+    margin-bottom: 8rpx;
+}
+
+.task-title.done {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.task-meta {
+    display: flex;
+    align-items: center;
+}
+
+.pomodoro-badge {
+    font-size: 24rpx;
+    color: #999;
+}
+
+/* 右侧删除 */
+.task-delete {
+    margin-left: 20rpx;
+    font-size: 40rpx;
+    padding: 10rpx;
+}

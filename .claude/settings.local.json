@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(npm list *)",
+      "Bash(where claude *)",
+      "Bash(npm root *)",
+      "Bash(ls \"$\\(npm root -g\\)/@anthropic-ai/claude-code/bin/\")",
+      "Bash(ls \"$\\(npm root -g\\)/@anthropic-ai/claude-agent-sdk/bin/\")",
+      "Bash(ls \"$\\(npm root -g\\)/@anthropic-ai/\")",
+      "Bash(cat \"$\\(npm root -g\\)/@anthropic-ai/claude-code/package.json\")",
+      "Bash(ls \"$\\(npm root -g\\)/@anthropic-ai/claude-code-win32-x64/\")",
+      "Bash(ls \"$\\(npm root -g\\)/@anthropic-ai/claude-code-win32-arm64/\")",
+      "Bash(claude *)",
+      "Bash(npm install *)",
+      "Bash(npm config *)",
+      "Bash(echo \"Prefix set to: $\\(npm config get prefix\\)\")",
+      "Bash(powershell.exe -NoProfile -Command \"[Environment]::GetEnvironmentVariable\\('PATH', 'User'\\)\")",
+      "Bash(powershell.exe -NoProfile -Command \"[Environment]::SetEnvironmentVariable\\('PATH', [Environment]::GetEnvironmentVariable\\('PATH', 'User'\\) + ';C:\\\\Users\\\\NicoTineZhen\\\\.npm-global', 'User'\\)\")",
+      "Bash(export PATH=\"$HOME/.npm-global:$PATH\")"
+    ]
+  }
+}

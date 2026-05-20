@@ -1,0 +1,73 @@
+<!--
+  任务列表页 —— 结构层
+  包含：新增输入框、任务卡片列表
+-->
+<view class="container">
+  <!-- ===== 新增任务区域 ===== -->
+  <view class="add-bar">
+    <input
+      class="add-input"
+      placeholder="添加一个新任务..."
+      placeholder-style="color:#ccc"
+      value="{{inputValue}}"
+      bind:input="onInputChange"
+      bind:confirm="addTask"
+      confirm-type="done"
+    />
+    <!--
+      placeholder-style：placeholder 文字的颜色
+      bind:input：输入文字时触发，相当于 Vue 的 @input
+      bind:confirm：键盘点"完成"时触发，相当于按回车
+      confirm-type="done"：键盘右下角按钮显示"完成"
+    -->
+    <button class="add-btn" bind:tap="addTask">添加</button>
+  </view>
+
+  <!-- ===== 任务列表 ===== -->
+  <view wx:if="{{!loading && tasks.length === 0}}" class="empty-tip">
+    <text>还没有任务，添加一个吧 🍅</text>
+  </view>
+
+  <view wx:else class="task-list">
+    <!--
+      wx:for：列表渲染，相当于 Vue 的 v-for="task in tasks"
+      wx:key：key 值，和 Vue 的 :key 一样，用于提高渲染性能
+    -->
+    <view
+      class="task-card"
+      wx:for="{{tasks}}"
+      wx:key="id"
+      bind:tap="goToPomodoro"
+      data-id="{{item.id}}"
+      data-title="{{item.title}}"
+    >
+      <!-- 左侧：完成状态图标 -->
+      <view class="task-check" catch:tap="toggleDone" data-id="{{item.id}}">
+        <!--
+          catch:tap：处理点击 + 阻止冒泡（两个作用合在一起）
+          不能同时写 bind:tap 和 catchtap，两个都写反而两个都触发
+        -->
+        <view class="check-circle {{item.done ? 'checked' : ''}}">
+          <text wx:if="{{item.done}}">✓</text>
+        </view>
+      </view>
+
+      <!-- 中间：任务信息 -->
+      <view class="task-info">
+        <text class="task-title {{item.done ? 'done' : ''}}">{{item.title}}</text>
+        <!--
+          通过 {{item.done ? 'done' : ''}} 动态切换 CSS 类名，
+          完成的标题会加删除线
+        -->
+        <view class="task-meta">
+          <text class="pomodoro-badge">🍅 {{item.pomodoroCount}}</text>
+        </view>
+      </view>
+
+      <!-- 右侧：删除按钮 -->
+      <view class="task-delete" catchtap="deleteTask" data-id="{{item.id}}">
+        <text>🗑</text>
+      </view>
+    </view>
+  </view>
+</view>

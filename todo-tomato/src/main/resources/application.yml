@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: todo-tomato
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/todo_tomato?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 8888
+
+# MyBatis 配置（注意：mybatis 必须在 spring 外层，不能缩进在 spring 下面）
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: org.example.todotomato.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# JWT 配置
+jwt:
+  secret: todo-tomato-jwt-secret-key-2026-nicotine
+  expiration: 604800
+
+# 微信小程序配置
+wechat:
+  appid: your-appid-here
+  secret: your-secret-here
